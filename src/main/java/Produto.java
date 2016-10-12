@@ -2,14 +2,13 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
 public class Produto implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
 	private Integer codigo;
 	private String descricao;
+	
 	private BigDecimal valor;
 	
 	private Date dataCadastro;
