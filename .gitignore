@@ -12,3 +12,5 @@ bin
 .metadata
 
 test-output/
+
+dados.csv
