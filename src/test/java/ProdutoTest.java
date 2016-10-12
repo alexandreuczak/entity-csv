@@ -20,15 +20,19 @@ public class ProdutoTest {
 	@Test
 	public void test(){
 		Produto p1 = new Produto(1, "Produto1", BigDecimal.TEN, DateTime.now().toDate());
-		Produto p2 = new Produto(1, "Produto2", new BigDecimal("100000.51"), DateTime.now().minusDays(1).toDate());
-		Produto p3 = new Produto(1, "Produto3", new BigDecimal("50.51"), DateTime.now().minusDays(5).toDate());
+		Produto p2 = new Produto(2, "Produto2", new BigDecimal("100000.51"), DateTime.now().minusDays(1).toDate());
+		Produto p3 = new Produto(3, "Produto3", new BigDecimal("50.51"), DateTime.now().minusDays(5).toDate());
 		List<Produto>produtos = new ArrayList<Produto>();
 		produtos.add(p1);
 		produtos.add(p2);
 		produtos.add(p3);
 		
 		CsvMapper mapper = new CsvMapper();
-		CsvSchema schema = mapper.schemaFor(Produto.class).withoutQuoteChar().withColumnSeparator(';').withHeader();
+		CsvSchema schema = mapper.schemaFor(Produto.class)
+								 .withoutQuoteChar()
+								 .sortedBy("codigo", "descricao", "dataCadastro", "valor")
+								 .withColumnSeparator(';')
+								 .withHeader();
 		String result = null;
 		try {
 			mapper.addMixIn(Produto.class, ProdutoFormat.class);
