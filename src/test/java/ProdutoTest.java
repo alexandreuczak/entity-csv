@@ -28,20 +28,20 @@ public class ProdutoTest {
 		CsvMapper mapper = new CsvMapper();
 		CsvSchema schema = mapper.schemaFor(Produto.class)
 								 .withoutQuoteChar()
-								 .sortedBy("codigo", "descricao", "dataCadastro", "valor")
+								// .sortedBy("codigo", "descricao", "dataCadastro", "valor")
 								 .withColumnSeparator(';')
 								 .withHeader();
-		String result = null;
+		String csvContent = null;
 		try {
-			mapper.addMixIn(Produto.class, ProdutoFormat.class);
-			result = mapper.writer(schema).writeValueAsString(produtos);
-			File csv = new File("dados.csv");
-			Files.write(result, csv, Charsets.UTF_8);
+			//mapper.addMixIn(Produto.class, ProdutoFormat.class);
+			csvContent = mapper.writer(schema).writeValueAsString(produtos);
+			File csvFile = new File("dados.csv");
+			Files.write(csvContent, csvFile, Charsets.UTF_8);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} 
 	
-		Assert.assertNotNull(result);
+		Assert.assertNotNull(csvContent);
 		
 	}
 	

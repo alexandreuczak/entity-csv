@@ -5,8 +5,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public abstract class ProdutoFormat {
 	
-	
-	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	public abstract Date getDataCadastro();
 	
