@@ -10,3 +10,5 @@ build
 .tern-project
 bin
 .metadata
+
+test-output/
