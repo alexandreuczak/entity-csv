@@ -1,4 +1,7 @@
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +12,8 @@ import org.testng.annotations.Test;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
+import com.google.common.base.Charsets;
+import com.google.common.io.Files;
 
 public class ProdutoTest {
 
@@ -16,10 +21,11 @@ public class ProdutoTest {
 	public void test(){
 		Produto p1 = new Produto(1, "Produto1", BigDecimal.TEN, DateTime.now().toDate());
 		Produto p2 = new Produto(1, "Produto2", new BigDecimal("100000.51"), DateTime.now().minusDays(1).toDate());
-		
+		Produto p3 = new Produto(1, "Produto3", new BigDecimal("50.51"), DateTime.now().minusDays(5).toDate());
 		List<Produto>produtos = new ArrayList<Produto>();
 		produtos.add(p1);
 		produtos.add(p2);
+		produtos.add(p3);
 		
 		CsvMapper mapper = new CsvMapper();
 		CsvSchema schema = mapper.schemaFor(Produto.class).withoutQuoteChar().withColumnSeparator(';').withHeader();
@@ -27,10 +33,12 @@ public class ProdutoTest {
 		try {
 			mapper.addMixIn(Produto.class, ProdutoFormat.class);
 			result = mapper.writer(schema).writeValueAsString(produtos);
-		} catch (JsonProcessingException e) {
+			File csv = new File("dados.csv");
+			Files.write(result, csv, Charsets.UTF_8);
+		} catch (IOException e) {
 			e.printStackTrace();
-		}
-		
+		} 
+	
 		Assert.assertNotNull(result);
 		
 	}
