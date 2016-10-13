@@ -13,6 +13,8 @@ import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 
+import br.com.produtos.Produto;
+
 public class ProdutoTest {
 
 	@Test
